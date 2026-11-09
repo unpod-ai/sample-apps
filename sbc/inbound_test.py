@@ -1,5 +1,8 @@
 """Test the answer URL: point a DID's inbound calls at this script, call the DID, see what the SBC does.
 
+Docs: https://docs.unpod.ai/telephony/apis/incoming-calls
+Run:  uv run inbound_test.py --did <org number> --public-url https://<tunnel> --rotate --mode speak
+
     # 1. tunnel (another terminal):
     cloudflared tunnel --protocol http2 --url http://localhost:8099
     # 2. this script, then call the DID from your phone:

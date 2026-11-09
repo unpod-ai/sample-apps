@@ -1,13 +1,16 @@
 """Local webhook receiver: verifies SBC call / recording events with the unpod SDK.
 
+Docs: https://docs.unpod.ai/telephony/apis/webhooks
+Run:  uv run webhook_receiver.py --port 8098 --secret <secret from webhook_secret.rotate()>
+
 What your app's ``status_callback_url`` / ``recording_callback_url`` routes do,
 in ~30 lines: read the raw body, call ``parse_call_event`` with the org's
 webhook secret, answer 200, or 401 on a bad signature.
 
     python webhook_receiver.py --port 8098 --secret <secret from webhook_secret.rotate()>
 
-Pair it with ``mock_sbc.py --deliver-to http://127.0.0.1:8098``. Import
-``WebhookReceiver`` to use it from a script (``live_flow.py``, ``sdk_driver.py``).
+Import ``WebhookReceiver`` to use it from a script (``call_test.py``,
+``inbound_test.py``).
 
 ``IncomingCallHandler`` is a reference Incoming Call (answer URL) handler: it
 answers ``StartApp`` + ringing with Record + Dial XML for a free agent, or

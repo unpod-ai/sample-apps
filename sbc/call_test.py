@@ -1,5 +1,8 @@
 """One script: attach a number, make a call through the SBC, show every webhook.
 
+Docs: https://docs.unpod.ai/telephony/apis/call-control
+Run:  uv run call_test.py --to <your number> --from <org number> --public-url https://<tunnel> --rotate
+
     # 1. public https URL for the webhooks (another terminal):
     cloudflared tunnel --url http://localhost:8098
     # 2. the call:
@@ -553,7 +556,7 @@ def main() -> None:
     if not args.from_:
         ap.error("--from (or SBC_FROM_NUMBER) is required: one of the org's numbers")
 
-    base =os.environ.get("UNPOD_BASE_URL", "")
+    base = os.environ.get("UNPOD_BASE_URL", "")
     local = urlsplit(base).hostname in ("localhost", "127.0.0.1")
     print(f"proxy {base or '(unset)'} | org {os.environ.get('UNPOD_ORG_HANDLE')} | from {args.from_} -> {args.to}"
           + (f" then {args.customer}" if args.customer else ""))
