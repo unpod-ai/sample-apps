@@ -13,6 +13,7 @@ a module demonstrates one docs page.
 | Module | Docs section | SDK surface |
 |---|---|---|
 | `telephony/` | https://docs.unpod.ai/telephony/introduction | `client.telephony.*`, `unpod.telephony` |
+| `sbc/` | https://docs.unpod.ai/telephony/introduction (call API QA scripts) | `client.telephony.calls`, `.inbound`, `parse_call_event` |
 | `voice-agents/` | https://docs.unpod.ai/speech-stack/introduction | `client.agents.*`, `AgentRunner`, `unpod.adapters` |
 | `autonomous-agents/` | https://docs.unpod.ai/core-engine/flows-journeys | `unpod.flows`, `client.flows`, `client.journeys` |
 
