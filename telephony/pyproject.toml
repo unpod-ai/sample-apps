@@ -1,0 +1,23 @@
+[project]
+name = "unpod-telephony-samples"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.162.2",
+    "unpod>=0.6.2",
+    "uvicorn>=0.54.0",
+]
+
+[tool.pyrefly]
+project-includes = [
+    "**/*.py*",
+    "**/*.ipynb",
+]
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.16.0",
+    "pyrefly>=1.4.1",
+    "pytest>=9.2.0",
+    "ruff>=0.17.4",
+]
