@@ -13,6 +13,7 @@ Docs: [Telephony APIs](https://docs.unpod.ai/telephony/introduction)
 | `call_test.py` | Outbound: dial a number, then optionally add a second participant, play hold music until they pick up, play audio, and download the recording |
 | `inbound_test.py` | Inbound: point a DID's answer URL at this machine, call it from a phone, answer with `<Speak>`, `<Dial>` or static routing, then restore the DID |
 | `webhook_receiver.py` | Local receiver used by both scripts: verifies signatures, serves the answer XML and a test tone |
+| `quickstart/` | One check script per step of the [Quick Start](https://docs.unpod.ai/telephony/apis/quickstart) page; see [quickstart/README.md](quickstart/README.md) |
 | `fake_sbc.py` | In-memory stand-in for `client.telephony` and the SBC, used by the tests |
 | `test_call_test.py`, `test_inbound_test.py` | Offline tests: outbound flow, add participant, wait tune, participant limit, inbound speak/dial/empty, DID restore, unsigned request rejected |
 
