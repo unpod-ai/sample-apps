@@ -58,7 +58,7 @@ typing-inspection==0.4.5
     # via
     #   fastapi
     #   pydantic
-unpod==0.6.2
+unpod==0.7.0
     # via unpod-sbc-call-tests
 uvicorn==0.54.0
     # via unpod-sbc-call-tests

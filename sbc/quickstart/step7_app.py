@@ -41,5 +41,5 @@ if __name__ == "__main__":
     import uvicorn
 
     if not SECRET:
-        raise SystemExit("FAIL  UNPOD_WEBHOOK_SECRET is not set -> run step6_webhook_secret.py --rotate")
+        raise SystemExit("FAIL  UNPOD_WEBHOOK_SECRET is not set -> run step6_webhook_secret.py")
     uvicorn.run(app, host="127.0.0.1", port=8000)

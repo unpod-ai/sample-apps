@@ -22,7 +22,7 @@ or `sbc/quickstart/.env`.
 
 | Docs step | Script | Changes anything? |
 |---|---|---|
-| 1. Webhook secret | `uv run quickstart/step6_webhook_secret.py` / `--rotate` | Only with `--rotate`: new secret, old one stops working; saved to `quickstart/.env` |
+| 1. Webhook secret | `uv run quickstart/step6_webhook_secret.py` (org admin) | No: `reveal()` reads the current secret and saves it to `quickstart/.env`. `--rotate` (org owner or editor) is only for an org with no secret yet: it makes a new one and the old one stops working |
 | 2. Run a server | `uv run quickstart/step7_app.py` (port 8000) | No |
 | 3. Expose it | `ngrok http 8000` or `cloudflared tunnel --protocol http2 --url http://localhost:8000`, then `uv run quickstart/step8_check_tunnel.py https://<tunnel>` | No |
 | 4. Point your number at it | `uv run quickstart/step9_point_number.py <DID> https://<tunnel>/answer` | Yes: sets the DID's answer URL. Undo with `--clear` |

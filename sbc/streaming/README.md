@@ -16,7 +16,7 @@ no credentials.
 
 ## Requirements
 
-These scripts need the streaming SDK, which is newer than the `unpod==0.6.2` pinned in this module's `uv.lock`
+These scripts need the streaming SDK, which is newer than the `unpod` release pinned in this module's `uv.lock`
 (the lockfile is left alone). Use a separate virtualenv:
 
 ```bash

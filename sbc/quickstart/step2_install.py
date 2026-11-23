@@ -3,7 +3,7 @@
 Docs: https://docs.unpod.ai/telephony/apis/quickstart
 Run:  uv run quickstart/step2_install.py
 
-Checks Python 3.12+ and unpod>=0.6.2 with the telephony module. No network.
+Checks Python 3.12+ and unpod>=0.7.0 with the telephony module. No network.
 """
 
 import sys
@@ -18,10 +18,10 @@ ok(f"Python {sys.version.split()[0]}")
 try:
     v = version("unpod")
 except Exception:  # noqa: BLE001
-    fail("unpod is not installed", 'pip install "unpod>=0.6.2"  (or uv sync)')
+    fail("unpod is not installed", 'pip install "unpod>=0.7.0"  (or uv sync)')
 parts = tuple(int(p) for p in v.split(".")[:3] if p.isdigit())
-if parts < (0, 6, 2):
-    fail(f"unpod {v}", 'pip install -U "unpod>=0.6.2"')
+if parts < (0, 7, 0):
+    fail(f"unpod {v}", 'pip install -U "unpod>=0.7.0"')
 ok(f"unpod {v}")
 
 from unpod.telephony import InboundConfig, TelephonyAPIError, parse_call_event  # noqa: F401
