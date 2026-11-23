@@ -7,6 +7,7 @@ a section of the docs. Each app in a module shows one docs page and links to it.
 | Module | What it covers | Status |
 |---|---|---|
 | [`telephony/`](telephony/) | Place, receive, and control calls; answer URLs; SIP trunking | 2 apps |
+| [`sbc/`](sbc/) | End-to-end outbound and inbound call tests for the telephony call API (SBC) | 2 scripts + offline tests |
 | [`voice-agents/`](voice-agents/) | Agents that talk on calls: prompt, playbook, or your own brain | Planned |
 | [`autonomous-agents/`](autonomous-agents/) | Flows and journeys that call, message, wait, and branch per contact | Planned |
 

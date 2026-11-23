@@ -1,0 +1,15 @@
+# These are throwaway-style QA drivers (real calls, blocking file I/O, broad excepts on purpose),
+# so the style rules below are relaxed for this folder only. Format and import order still apply.
+[lint]
+ignore = [
+    "SIM115",   # open() without a context manager (event logs are appended and read back)
+    "ASYNC230", # blocking open() in async code
+    "ASYNC220", # subprocess in async code
+    "ASYNC221",
+    "BLE001",   # blind except: drivers must keep going and report
+    "S110",     # try/except/pass while tearing down
+    "C408",
+    "ISC004",
+    "PLW1510",
+    "F841",     # unused locals kept for readability of the call flow
+]

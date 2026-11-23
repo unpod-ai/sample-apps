@@ -14,11 +14,25 @@ DIALING = {"initiated", "ringing"}
 GREETING = "Hello from Unpod. This is a test call."
 
 
+def ensure_attached(tel, number: str) -> None:
+    """Attach `number` as human_call only if it is still free in the pool.
+
+    A number the org already holds (status `assigned`) is used as it is: the
+    attach endpoint rejects it with 400 "No valid unassigned numbers found.",
+    and outbound calls work from an agent-attached number too.
+    """
+    status = next((n.status for n in tel.numbers.list() if n.number == number), None)
+    if status == "not_assigned":
+        tel.numbers.attach(number, attach_type="human_call")
+    elif status != "assigned":
+        sys.exit(f"{number} is not one of your numbers or a free pool number")
+
+
 def call_and_speak(from_: str, to: str) -> None:
     """Dial `to` from `from_`, wait for an answer, then speak GREETING."""
     with Client() as client:
         tel = client.telephony
-        tel.numbers.attach(from_, attach_type="human_call")
+        ensure_attached(tel, from_)
         call = tel.calls.create(from_, to, ring_timeout=30)
         # ponytail: polling; production apps take status_callback_url events
         while call.state in DIALING:
