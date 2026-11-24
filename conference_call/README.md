@@ -56,8 +56,9 @@ exit code is 0 only when every B answered.
 The agent's answer XML is `<Speak>` greeting, `<Stream>` to the agent, `<Speak>`,
 then `<Dial>HUMAN_NUMBER</Dial>`. When the caller asks for a person or presses
 `0`, the agent closes the stream and Unpod runs the `<Dial>`. Any exit by the
-agent goes to the human, so a caller is never dropped. Use this flow because
-`calls.transfer` doesn't work yet.
+agent goes to the human, so a caller is never dropped. A blind
+[`calls.transfer`](https://docs.unpod.ai/telephony/apis/call-control#transfer) also
+moves a caller to a person; this flow keeps the handoff inside the answer XML.
 
 ```bash
 cloudflared tunnel --url http://localhost:8000          # put its host in PUBLIC_HOST

@@ -87,5 +87,6 @@ uv run uvicorn answer_url:app --port 8000
 - Handoff from a streamed bot: `<Stream keepCallAlive="true">` then `<Dial>`. The
   bot closes the socket and Unpod runs the `<Dial>`; build the serializer with
   `UnpodFrameSerializer.InputParams(auto_hang_up=False)` or the bot hangs the call
-  up instead. `calls.transfer` is documented as not working yet. A call holds at
-  most two participants (`add_participant` → 409 `participant_limit`).
+  up instead. A blind `calls.transfer(call_id, target)` works too (live-tested on
+  QA, Nov 2026; `leg="caller"` on inbound calls); `type="attended"` returns 501. A
+  call holds at most two participants (`add_participant` → 409 `participant_limit`).
