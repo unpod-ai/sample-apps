@@ -1,6 +1,10 @@
-"""Transfer test on QA: call A, then transfer(call_id, B, type=blind|attended, leg=callee) once A answers.
-A default leg, no stream | B leg_id=<call>-callee, no stream | C leg_id + stream active | D default leg + stream.
- $PY run_dtmf.py NAME --to +91...
+"""Blind transfer on QA: call A, then transfer(call_id, B, type="blind", leg="callee") once A answers.
+
+Falls back to an attended transfer if no leg for B appears (attended answers 501 today).
+--answer-q picks the answer XML: the default holds A with <Wait>; 'ct=mulaw&cb=1' runs an
+echo <Stream> first, so you can check that the transfer stops it.
+Docs: https://docs.unpod.ai/telephony/apis/call-control#transfer
+Run:  python -u run_transfer2.py NAME --to +91A --also +91B [--answer-q 'ct=mulaw&cb=1']
 """
 
 from __future__ import annotations
@@ -106,7 +110,7 @@ async def main(a):
             call = await calls.create(
                 from_,
                 a.to,
-                answer_url=f"{url}/answer?plain=1&wait=900",
+                answer_url=f"{url}/answer?{a.answer_q}",
                 status_callback_url=f"{url}/cb/call",
                 status_callback_method="POST",
             )
@@ -187,9 +191,16 @@ async def main(a):
                         calls.transfer_complete(cid, legs[0]),
                     )
                 say(
-                    "watching 20 s after completion: A and B should now be connected to each other"
+                    f"watching up to {a.max_wait} s: A and B should be connected; "
+                    "hang up either phone to see what happens to the other"
                 )
-                await asyncio.sleep(20)
+                end = time.monotonic() + a.max_wait
+                while time.monotonic() < end and not any(
+                    "Event=MPCEnd" in e.get("body", "")
+                    for e in read_events(events_path)
+                    if e["kind"] == "callback"
+                ):
+                    await asyncio.sleep(1)
             else:
                 say("no leg for B appeared at all")
             say("done watching; hanging up")
@@ -268,6 +279,11 @@ if __name__ == "__main__":
     p.add_argument("--to", required=True)
     p.add_argument("--also", required=True)
     p.add_argument("--type", default="blind", choices=["blind", "attended"])
+    p.add_argument(
+        "--answer-q",
+        default="plain=1&wait=900",
+        help="bot.py /answer query; e.g. 'ct=mulaw&cb=1' to transfer while a <Stream> is active",
+    )
     p.add_argument(
         "--limit",
         type=int,

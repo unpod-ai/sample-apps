@@ -99,7 +99,8 @@ python -u run_prestart.py NAME --to +91XXXXXXXXXX      # REST start before the c
 python -u run_pipecat_call.py +91XXXXXXXXXX            # Pipecat echo bot through UnpodFrameSerializer; speak, press 5 * #
 python -u run_example.py NAME --to +91XXXXXXXXXX       # examples/pipecat_streaming as shipped
 python -u run_dtmf.py NAME --to +91XXXXXXXXXX          # send_dtmf variants (also run_dtmf2.py, run_dtmf3.py)
-python -u run_transfer.py NAME --to +91A --also +91B   # transfer on a REST call (also run_transfer2.py)
+python -u run_transfer2.py NAME --to +91A --also +91B [--answer-q 'ct=mulaw&cb=1']   # blind transfer, without or with a stream
+python -u run_transfer_inbound.py NAME --did +91DID --also +91B          # blind transfer of an inbound call with a Stream bot; restores the DID config
 python -u run_multi.py NAME 'ct=l16_16&cb=1' --to +91A --to +91B     # concurrent calls
 python -u run_lat2.py NAME --a +91A --b +91B            # echo latency between two phones
 ```
