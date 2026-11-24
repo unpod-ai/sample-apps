@@ -1,0 +1,25 @@
+[project]
+name = "unpod-conference-call-samples"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.165.0",
+    "httpx>=0.28.1",
+    "pipecat-ai[anthropic,cartesia,deepgram,silero,websocket]>=1.17.0",
+    "unpod[pipecat]>=0.7.0",
+    "uvicorn>=0.54.0",
+]
+
+[tool.pyrefly]
+project-includes = [
+    "**/*.py*",
+    "**/*.ipynb",
+]
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.16.0",
+    "pyrefly>=1.4.1",
+    "pytest>=9.2.0",
+    "ruff>=0.17.4",
+]

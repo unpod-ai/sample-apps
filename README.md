@@ -9,6 +9,7 @@ a section of the docs. Each app in a module shows one docs page and links to it.
 | [`telephony/`](telephony/) | Place, receive, and control calls; answer URLs; SIP trunking | 2 apps |
 | [`voice-agents/`](voice-agents/) | Agents that talk on calls: prompt, playbook, or your own brain | Planned |
 | [`autonomous-agents/`](autonomous-agents/) | Flows and journeys that call, message, wait, and branch per contact | Planned |
+| [`conference_call/`](conference_call/) | End-to-end call tests: two people on one call, AI agent with handoff to a person, WebSocket audio streaming | 4 apps |
 
 ## Prerequisites
 

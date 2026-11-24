@@ -15,6 +15,7 @@ a module demonstrates one docs page.
 | `telephony/` | https://docs.unpod.ai/telephony/introduction | `client.telephony.*`, `unpod.telephony` |
 | `voice-agents/` | https://docs.unpod.ai/speech-stack/introduction | `client.agents.*`, `AgentRunner`, `unpod.adapters` |
 | `autonomous-agents/` | https://docs.unpod.ai/core-engine/flows-journeys | `unpod.flows`, `client.flows`, `client.journeys` |
+| `conference_call/` | https://docs.unpod.ai/telephony/integrations/websockets | `calls.add_participant`, `unpod.pipecat`, `unpod.telephony.stream` |
 
 `voice-agents/` and `autonomous-agents/` hold only a README of planned apps so far.
 When you add a module, add a row here and in the root `README.md`.
@@ -75,9 +76,16 @@ uv run uvicorn answer_url:app --port 8000
     `X-Webhook-Signature: t=<ts>,v1=<hex HMAC-SHA256(secret, "<ts>.<body>")>`,
     with a 300 s tolerance. The secret comes from
     `client.telephony.webhook_secret.rotate()`, and rotating invalidates the old one.
-  - Outbound answer-URL callbacks are not signed yet, so use `verify=False`. The
-    outbound `CallUUID` ends in `-caller`, so match on `MPCUUID`.
+  - Outbound answer-URL POSTs are signed too (seen on QA, Nov 2026, and per the
+    docs); GET answer URLs are not. The outbound `CallUUID` ends in `-caller`, so
+    match on `MPCUUID`.
 - Answer-URL XML allows only `Speak`, `Play`, `Wait`, `Record`, `Dial` (with a
-  `Number` child), and `Hangup`. Any other verb (`GetDigits`, `Conference`,
-  `Redirect`) fails the whole reply. Limits are 64 KB, 32 verbs, and 4096 chars per
-  `Speak`. The JSON form is `{"actions": [{"type": "speak", "text": "..."}]}`.
+  `Number` child), `GetDigits`, `GetInput`, `Stream`, and `Hangup`. Any other verb
+  (`Conference`, `Redirect`) fails the whole reply. Limits are 64 KB, 32 verbs, and
+  4096 chars per `Speak`. The JSON form is
+  `{"actions": [{"type": "speak", "text": "..."}]}`.
+- Handoff from a streamed bot: `<Stream keepCallAlive="true">` then `<Dial>`. The
+  bot closes the socket and Unpod runs the `<Dial>`; build the serializer with
+  `UnpodFrameSerializer.InputParams(auto_hang_up=False)` or the bot hangs the call
+  up instead. `calls.transfer` is documented as not working yet. A call holds at
+  most two participants (`add_participant` → 409 `participant_limit`).
