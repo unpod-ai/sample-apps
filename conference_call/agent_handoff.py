@@ -6,8 +6,8 @@ Run:  uv run uvicorn agent_handoff:app --port 8000    # served at https://$PUBLI
 
 The answer XML streams the call to the agent and puts a <Dial> after the stream.
 When the caller asks for a person (or presses 0), the agent closes the stream and
-Unpod dials HUMAN_NUMBER. The transfer API is not live yet; this is the documented
-handoff. Env: UNPOD_WEBHOOK_SECRET, PUBLIC_HOST, HUMAN_NUMBER, DEEPGRAM_API_KEY,
+Unpod dials HUMAN_NUMBER. A blind calls.transfer works too; this keeps the handoff in
+the answer XML. Env: UNPOD_WEBHOOK_SECRET, PUBLIC_HOST, HUMAN_NUMBER, DEEPGRAM_API_KEY,
 ANTHROPIC_API_KEY, CARTESIA_API_KEY (plus the UNPOD_* API credentials for the CLI).
 """
 
